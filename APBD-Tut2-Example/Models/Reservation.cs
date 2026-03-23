@@ -1,11 +1,11 @@
 namespace APBD_Tut2_Example.Models;
 
-public class Reservation(Room room, User user, DateTime from, DateTime to)
+public class Reservation(Equipment equipment, User user, DateTime from, DateTime to)
 {
     private static int _nextId = 1;
     
     public int Id { get; set; } = _nextId++;
-    public Room Room { get; set; } = room;
+    public Equipment equipment { get; set; } = equipment;
     public User User { get; set; } = user;
     public DateTime From { get; set; } = from >= to ? throw new ArgumentException("Invalid time range") : from;
     public DateTime To { get; set; } = to;

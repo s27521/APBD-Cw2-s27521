@@ -8,11 +8,11 @@ public class ReservationService : IReservationService
 {
     private readonly List<Reservation> _reservations = [];
     
-    public void CreateReservation(User user, Room room, DateTime from, DateTime to)
+    public void CreateReservation(User user, Equipment equipment, DateTime from, DateTime to)
     {
-        if (room.Status != RoomStatus.Available)
+        if (equipment.Status != EquipmentStatus.Available)
         {
-            throw new RoomUnavailableException(room.Id);
+            throw new EquipmentUnavailableException(equipment.Id);
         }
 
         int activeUserReservations = _reservations.Count(reservation => 
@@ -26,15 +26,15 @@ public class ReservationService : IReservationService
 
         bool reservationConflict = _reservations.Any(reservation =>
                                         !reservation.IsCancelled
-                                        && reservation.Room == room
+                                        && reservation.equipment == equipment
                                         && reservation.Overlaps(from, to));
 
         if (reservationConflict)
         {
-            throw new ReservationConflictException(room.Id, from, to);
+            throw new ReservationConflictException(equipment.Id, from, to);
         }
         
-        var newReservation = new Reservation(room, user, from, to);
+        var newReservation = new Reservation(equipment, user, from, to);
         _reservations.Add(newReservation);
     }
 
