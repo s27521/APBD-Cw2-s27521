@@ -6,15 +6,15 @@ using APBD_Tut2_Example.Services.Rooms;
 var user1 = new Employee("Jan", "Kowalski");
 var user2 = new Student("Michael", "Doe");
 
-var room1 = new Laptop("112B", 20, true, "Ubuntu");
-var room2 = new Laptop("112C", 20, true, "Windows");
-var room3 = new Projector("112", 20, true);
+var room1 = new Laptop("112B","Asus", true, "Ubuntu");
+var room2 = new Laptop("112C", "Lenovo", true, "Windows");
+var room3 = new Projector("112","Samsung", true, "Laser");
 
 IEquipmentService equipmentService = new EquipmentService();
 
-equipmentService.AddRoom(room1);
-equipmentService.AddRoom(room2);
-equipmentService.AddRoom(room3);
+equipmentService.AddEquipment(room1);
+equipmentService.AddEquipment(room2);
+equipmentService.AddEquipment(room3);
 
 equipmentService.SetUnavailable(room2.Id);
 
@@ -41,7 +41,7 @@ try
     Console.WriteLine("\n[Attempt to create conflicting reservation]: ");
     reservationService.CreateReservation(
         user1,
-        equipmentService.GetRoomById(1),
+        equipmentService.GetEquipmentById(1),
         new DateTime(2026, 1, 1, 10, 0, 0),
         new DateTime(2026, 1, 1, 11, 30, 0));
     reservationService.CreateReservation(
@@ -70,7 +70,7 @@ catch (Exception e)
 try
 {
     Console.WriteLine("\n[Attempt to get not existing room]: ");
-    var room = equipmentService.GetRoomById(10);
+    var room = equipmentService.GetEquipmentById(10);
 }
 catch(Exception e)
 {

@@ -6,36 +6,36 @@ namespace APBD_Tut2_Example.Services.Rooms;
 
 public class EquipmentService : IEquipmentService
 {
-    private readonly List<Equipment> _rooms = [];
+    private readonly List<Equipment> _equipments = [];
 
-    public void AddRoom(Equipment equipment)
+    public void AddEquipment(Equipment equipment)
     {
-        _rooms.Add(equipment);
+        _equipments.Add(equipment);
     }
 
-    public Equipment GetRoomById(int roomId)
+    public Equipment GetEquipmentById(int roomId)
     {
-        return _rooms.FirstOrDefault(room => room.Id == roomId) 
+        return _equipments.FirstOrDefault(room => room.Id == roomId) 
                ?? throw new EquipmentNotFoundException(roomId);
     }
 
     public List<Equipment> GetAll()
     {
-        return _rooms;
+        return _equipments;
     }
 
     public List<Equipment> GetAvailable()
     {
-        return _rooms.Where(room => room.Status == EquipmentStatus.Available).ToList();
+        return _equipments.Where(room => room.Status == EquipmentStatus.Available).ToList();
     }
 
     public void SetAvailable(int roomId)
     {
-        GetRoomById(roomId).Status = EquipmentStatus.Available;
+        GetEquipmentById(roomId).Status = EquipmentStatus.Available;
     }
 
     public void SetUnavailable(int roomId)
     {
-        GetRoomById(roomId).Status = EquipmentStatus.Unavailable;
+        GetEquipmentById(roomId).Status = EquipmentStatus.Unavailable;
     }
 }
