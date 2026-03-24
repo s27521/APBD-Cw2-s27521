@@ -13,10 +13,10 @@ public class EquipmentService : IEquipmentService
         _equipments.Add(equipment);
     }
 
-    public Equipment GetEquipmentById(int roomId)
+    public Equipment GetEquipmentById(int equipmentId)
     {
-        return _equipments.FirstOrDefault(room => room.Id == roomId) 
-               ?? throw new EquipmentNotFoundException(roomId);
+        return _equipments.FirstOrDefault(room => room.Id == equipmentId) 
+               ?? throw new EquipmentNotFoundException(equipmentId);
     }
 
     public List<Equipment> GetAll()
@@ -26,16 +26,16 @@ public class EquipmentService : IEquipmentService
 
     public List<Equipment> GetAvailable()
     {
-        return _equipments.Where(room => room.Status == EquipmentStatus.Available).ToList();
+        return _equipments.Where(equipment => equipment.Status == EquipmentStatus.Available).ToList();
     }
 
-    public void SetAvailable(int roomId)
+    public void SetAvailable(int equipmentId)
     {
-        GetEquipmentById(roomId).Status = EquipmentStatus.Available;
+        GetEquipmentById(equipmentId).Status = EquipmentStatus.Available;
     }
 
-    public void SetUnavailable(int roomId)
+    public void SetUnavailable(int equipmentId)
     {
-        GetEquipmentById(roomId).Status = EquipmentStatus.Unavailable;
+        GetEquipmentById(equipmentId).Status = EquipmentStatus.Unavailable;
     }
 }
