@@ -17,11 +17,10 @@ public class Reservation(Equipment equipment, User user, DateTime from, DateTime
         IsCancelled = true;
     }
 
-    public int Return(DateTime returnDate)
+    public void Return(DateTime returnDate)
     {
         ReturnDate = returnDate;
         IsCancelled = true;
-        return (returnDate - From).Days;
     }
 
     public bool Overlaps(DateTime from, DateTime to)
@@ -34,8 +33,4 @@ public class Reservation(Equipment equipment, User user, DateTime from, DateTime
         return To < DateTime.Now &&  !IsCancelled;
     }
 
-    public int ReservationLength()
-    {
-        return (To - From).Days;
-    }
 }
