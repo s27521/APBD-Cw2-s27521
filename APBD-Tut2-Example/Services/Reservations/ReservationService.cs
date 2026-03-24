@@ -1,12 +1,14 @@
 using APBD_Tut2_Example.Enums;
 using APBD_Tut2_Example.Exceptions;
 using APBD_Tut2_Example.Models;
+using APBD_Tut2_Example.Services.Penalties;
 
 namespace APBD_Tut2_Example.Services.Reservations;
 
 public class ReservationService : IReservationService
 {
     private readonly List<Reservation> _reservations = [];
+    private readonly PenaltyService _penaltyService = new PenaltyService();
     
     public void CreateReservation(User user, Equipment equipment, DateTime from, DateTime to)
     {
@@ -58,8 +60,16 @@ public class ReservationService : IReservationService
         {
             throw new ReservationNotFoundException(reservationId);
         }
-        
-        reservation.Return(returnDate);
+
+        if (reservation.IsPastDue())
+        {
+            _penaltyService.CreatePenalty(reservation, returnDate);
+        }
+        else
+        {
+            reservation.Return(returnDate);
+        }
+
     }
 
     public List<Reservation> GetUserReservations(User user)
