@@ -10,4 +10,5 @@ public interface IReservationService
     public List<Reservation> GetUserReservations(User user);
     public List<Reservation> GetAll();
     public List<Reservation> GetPastDue();
+    public string GetStatus();
 }

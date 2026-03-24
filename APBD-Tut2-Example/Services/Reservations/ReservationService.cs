@@ -74,6 +74,13 @@ public class ReservationService : IReservationService
 
     public List<Reservation> GetPastDue()
     {
-        throw new NotImplementedException();
+        return _reservations.Where(reservation => reservation.IsPastDue()).ToList();
+    }
+
+    public string GetStatus()
+    {
+        int aciveReservations = _reservations.Count(reservation => reservation.IsCancelled == false);
+        int pastDueReservations = GetPastDue().Count;
+        return $"Number of active reservations: {aciveReservations}, past due: {pastDueReservations}";
     }
 }

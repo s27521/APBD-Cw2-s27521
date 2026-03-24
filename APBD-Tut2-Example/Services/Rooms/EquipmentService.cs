@@ -38,4 +38,11 @@ public class EquipmentService : IEquipmentService
     {
         GetEquipmentById(equipmentId).Status = EquipmentStatus.Unavailable;
     }
+
+    public string GetStatus()
+    {
+        int available = GetAvailable().Count;
+        int unavailable = GetAll().Count - available;
+        return $"Number of available equipment: {available}, unavailable: {unavailable}";
+    }
 }
