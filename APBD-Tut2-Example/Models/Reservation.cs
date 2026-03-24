@@ -30,7 +30,7 @@ public class Reservation(Equipment equipment, User user, DateTime from, DateTime
 
     public bool GoodReturn()
     {
-        return ReturnDate <= To && ReturnDate != null && IsCancelled;
+        return ReturnDate <= To && ReturnDate is not null && IsCancelled;
     }
 
     public bool IsPastDue()
