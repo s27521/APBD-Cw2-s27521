@@ -35,7 +35,7 @@ public class Reservation(Equipment equipment, User user, DateTime from, DateTime
 
     public bool IsPastDue()
     {
-        return To < DateTime.Now;
+        return To < DateTime.Now &&  !IsCancelled;
     }
 
     public int Length()
