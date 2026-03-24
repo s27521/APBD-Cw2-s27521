@@ -26,7 +26,7 @@ public class ReservationService : IReservationService
 
         bool reservationConflict = _reservations.Any(reservation =>
                                         !reservation.IsCancelled
-                                        && reservation.equipment == equipment
+                                        && reservation.Equipment == equipment
                                         && reservation.Overlaps(from, to));
 
         if (reservationConflict)
@@ -50,6 +50,18 @@ public class ReservationService : IReservationService
         reservation.Cancel();
     }
 
+    public void ReturnReservation(int reservationId, DateTime returnDate)
+    {
+        var reservation = _reservations.FirstOrDefault(reservation => reservation.Id == reservationId);
+        
+        if (reservation is null)
+        {
+            throw new ReservationNotFoundException(reservationId);
+        }
+        
+        reservation.Return(returnDate);
+    }
+
     public List<Reservation> GetUserReservations(User user)
     {
         return _reservations.Where(reservation => reservation.User == user && !reservation.IsCancelled).ToList();
@@ -58,5 +70,10 @@ public class ReservationService : IReservationService
     public List<Reservation> GetAll()
     {
         return _reservations;
+    }
+
+    public List<Reservation> GetPastDue()
+    {
+        throw new NotImplementedException();
     }
 }
