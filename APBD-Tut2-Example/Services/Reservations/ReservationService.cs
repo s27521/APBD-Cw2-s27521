@@ -74,6 +74,6 @@ public class ReservationService : IReservationService
 
     public List<Reservation> GetPastDue()
     {
-        throw new NotImplementedException();
+        return _reservations.Where(reservation => reservation.IsPastDue()).ToList();
     }
 }
