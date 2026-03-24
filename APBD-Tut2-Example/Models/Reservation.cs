@@ -33,6 +33,11 @@ public class Reservation(Equipment equipment, User user, DateTime from, DateTime
         return ReturnDate <= To && ReturnDate != null && IsCancelled;
     }
 
+    public bool IsPastDue()
+    {
+        return To < DateTime.Now;
+    }
+
     public int Length()
     {
         return (To - From).Days;
